@@ -1,8 +1,10 @@
 import { Card, Form, Input, Button, Checkbox } from 'antd'
 import logo from '../../assets/logo.png'
 import './index.scss'
+
+type FormData = { mobile: string; code: string; remember: boolean }
 const Login = () => {
-  const onFinish = (values: any) => {
+  const onFinish = (values: FormData) => {
     console.log('Success:', values);
   };
 
@@ -16,22 +18,23 @@ const Login = () => {
         <Form
           name="basic"
           labelCol={{ span: 8 }}
+          validateTrigger={['onChange', 'onBlur']}
           wrapperCol={{ span: 24 }}
-          initialValues={{ remember: true }}
+          initialValues={{ remember: true, mobile: 13543274692, code: 120423 }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <Form.Item
-            name="username"
-            rules={[{ required: true, message: '手机号不能为空' }]}
+            name="mobile"
+            rules={[{ required: true, message: '手机号不能为空' }, { pattern: /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/, message: '手机号格式有误' }]}
           >
             <Input placeholder='请输入你的手机号' size='large' />
           </Form.Item>
 
           <Form.Item
-            name="password"
-            rules={[{ required: true, message: '验证码不能为空' }]}
+            name="code"
+            rules={[{ required: true, message: '验证码不能为空' }, { pattern: /^\d{6}$/, message: '验证码格式有误' }]}
           >
             <Input placeholder='请输入验证码' size='large' />
           </Form.Item>
