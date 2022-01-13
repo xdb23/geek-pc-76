@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import Login from './pages/Login'
-import Layout from './pages/Layout'
+import Login from '@/pages/Login'
+import Layout from '@/pages/Layout'
 
 
 
