@@ -1,0 +1,29 @@
+.layout {
+    // 100%的视口高度
+    height: 100vh;
+    background-color: orange;
+    :global {
+      .ant-layout {
+        height: 100%;
+      }
+      .logo {
+        width: 100%;
+      }
+      .right {
+        float: right;
+        .icon {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+        }
+        .username {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
+        span {
+          color: white;
+        }
+      }
+    }
+  }
+  

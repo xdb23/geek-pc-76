@@ -1,6 +1,6 @@
-import { login } from '@/api'
-import { setToken } from '@/utils'
+import { loginAction } from '@/store/actions'
 import { Card, Form, Input, Button, Checkbox, message } from 'antd'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import logo from '../../assets/logo.png'
 import './index.scss'
@@ -9,13 +9,11 @@ type FormData = { mobile: string; code: string; remember: boolean }
 const Login = () => {
   // history
   const history = useHistory()
+  const dispatch = useDispatch()
   const onFinish = async (values: FormData) => {
-    // console.log('Success:', values);
     const { mobile, code } = values
-    const res = await login(mobile, code)
-    console.log('res', res)
+    await dispatch(loginAction(mobile, code))
     message.success('登录成功')
-    setToken(res.data.data.token)
     history.push('/home')
   }
 

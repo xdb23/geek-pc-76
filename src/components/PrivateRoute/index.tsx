@@ -1,8 +1,15 @@
 import { isAuth } from '@/utils'
 import { message } from 'antd'
+import { useEffect } from 'react'
 import { Redirect, Route, RouteProps } from 'react-router-dom'
 
 function PrivateRoute ({ children, ...rest }: RouteProps) {
+  useEffect(() => {
+    if (!isAuth()) {
+      message.error('麻烦请先登录！！！')
+    }
+  })
+
   return (
     <Route
       {...rest}
@@ -10,7 +17,6 @@ function PrivateRoute ({ children, ...rest }: RouteProps) {
         if (isAuth()) {
           return children
         } else {
-          message.error('麻烦请先登录！！！')
           return (
             <Redirect
               to={{

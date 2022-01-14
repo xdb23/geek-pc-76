@@ -1,4 +1,6 @@
+import { message } from 'antd';
 import axios from 'axios'
+import { getToken, isAuth } from '.';
 // const baseURL = 'https://autumnfish.cn/api/'
 const baseURL = 'http://geek.itheima.net/v1_0'
 const request = axios.create({
@@ -8,7 +10,9 @@ const request = axios.create({
 // 添加请求拦截器
 request.interceptors.request.use(
     function (config) {
-        console.log('request-run');
+        if(isAuth()) {
+            config.headers!['Authorization'] = `Bearer ${getToken()}`
+        }
         return config  
     },
     function (error) {
@@ -23,6 +27,7 @@ request.interceptors.response.use(
         return response  
     },
     function (error) {
+        message.error(error.response.data.message)
         return Promise.reject(error)
     }
 )

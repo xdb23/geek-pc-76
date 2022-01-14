@@ -6,6 +6,16 @@ type LoginRes = {
         refresh_token: string
     }
 }
+
+export type UserInfo = {
+    birthday: string
+    gender: number
+    id: string
+    mobile: string
+    name: string
+    photo: string
+  }
+
 function login(mobile: string, code: string):AxiosPromise<LoginRes> {
     return request ({
         url: '/authorizations',
@@ -16,4 +26,12 @@ function login(mobile: string, code: string):AxiosPromise<LoginRes> {
         }
     })
 }
-export { login }
+
+function userInfo(): AxiosPromise<{data: UserInfo}> {
+    return request({
+        url: '/user/profile',
+        method: 'get'
+    })
+}
+
+export { login, userInfo }
